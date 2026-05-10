@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fra idé til virkelighet | From Idea to Reality</title>
+  <meta name="description" content="Et lite prosjektfellesskap for kreative, faglig sterke og handlekraftige mennesker som vil skape nye løsninger sammen." />
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-soft: #111827;
+      --card: #ffffff;
+      --card-soft: #f8fafc;
+      --text: #0f172a;
+      --muted: #64748b;
+      --light: #ffffff;
+      --accent: #38bdf8;
+      --accent-2: #facc15;
+      --line: #e2e8f0;
+      --shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
+      --radius: 22px;
+      --max: 1160px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #f1f5f9;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(12px);
+      color: var(--light);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #0f172a;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .nav-links a:hover {
+      color: var(--light);
+    }
+
+    .language-toggle {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .language-toggle button {
+      border: 0;
+      border-radius: 999px;
+      padding: 7px 12px;
+      color: rgba(255,255,255,0.84);
+      background: transparent;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .language-toggle button.active {
+      background: var(--light);
+      color: #0f172a;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 20%, rgba(56,189,248,0.28), transparent 32%),
+        radial-gradient(circle at 86% 26%, rgba(250,204,21,0.22), transparent 34%),
+        linear-gradient(135deg, #0f172a 0%, #111827 58%, #1e293b 100%);
+      color: var(--light);
+    }
+
+    .hero-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 92px 22px 82px;
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 42px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #bae6fd;
+      background: rgba(14, 165, 233, 0.13);
+      border: 1px solid rgba(186, 230, 253, 0.28);
+      padding: 8px 13px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 5.15rem);
+      line-height: 0.96;
+      letter-spacing: -0.065em;
+      margin: 0 0 24px;
+    }
+
+    .hero p {
+      font-size: 1.18rem;
+      max-width: 680px;
+      color: rgba(255,255,255,0.82);
+      margin: 0 0 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 13px 20px;
+      font-weight: 800;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: var(--accent-2);
+      color: #0f172a;
+      box-shadow: 0 14px 30px rgba(250, 204, 21, 0.25);
+    }
+
+    .btn-secondary {
+      color: var(--light);
+      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 28px;
+      box-shadow: 0 24px 70px rgba(0,0,0,0.22);
+      padding: 28px;
+      backdrop-filter: blur(18px);
+    }
+
+    .hero-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.55rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-card p {
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.55rem;
+      color: #fef3c7;
+      line-height: 1.1;
+    }
+
+    .stat span {
+      display: block;
+      color: rgba(255,255,255,0.78);
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+
+    .section {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 76px 22px;
+    }
+
+    .section-header {
+      max-width: 790px;
+      margin-bottom: 32px;
+    }
+
+    .section-header .kicker {
+      color: #0284c7;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 900;
+      font-size: 0.78rem;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.05;
+      letter-spacing: -0.05em;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.08rem;
+      margin-top: 16px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: 0 8px 28px rgba(15, 23, 42, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .about {
+      background: #ffffff;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .profile-box {
+      background: #0f172a;
+      color: var(--light);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+
+    .profile-box .name {
+      font-size: 1.75rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .profile-box p {
+      color: rgba(255,255,255,0.78);
+      margin: 0 0 16px;
+    }
+
+    .profile-list {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+    }
+
+    .profile-list li {
+      padding: 10px 0;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.86);
+    }
+
+    .text-panel {
+      background: var(--card-soft);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 30px;
+    }
+
+    .text-panel p:first-child {
+      margin-top: 0;
+    }
+
+    .text-panel p:last-child {
+      margin-bottom: 0;
+    }
+
+    .process {
+      background: #e0f2fe;
+    }
+
+    .steps {
+      counter-reset: step;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .step {
+      position: relative;
+      background: #ffffff;
+      border: 1px solid rgba(2,132,199,0.16);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #0f172a;
+      color: white;
+      font-weight: 900;
+      margin-bottom: 14px;
+    }
+
+    .step h3 {
+      margin: 0 0 8px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .summary-contact {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .summary-box {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      border-radius: 28px;
+      padding: 32px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 92px;
+    }
+
+    .summary-box h2 {
+      font-size: 2.2rem;
+    }
+
+    .summary-box p {
+      color: rgba(255,255,255,0.82);
+    }
+
+    .summary-list {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 0;
+    }
+
+    .summary-list li {
+      display: flex;
+      gap: 10px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.88);
+    }
+
+    .summary-list li::before {
+      content: "✓";
+      color: var(--accent-2);
+      font-weight: 900;
+    }
+
+    form {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    label {
+      display: block;
+      font-weight: 800;
+      margin: 18px 0 7px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 13px 14px;
+      font: inherit;
+      color: var(--text);
+      background: #ffffff;
+    }
+
+    textarea {
+      min-height: 118px;
+      resize: vertical;
+    }
+
+    .form-note {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin: 0 0 18px;
+    }
+
+    .submit-row {
+      margin-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .submit-btn {
+      border: 0;
+      cursor: pointer;
+      background: #0f172a;
+      color: white;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 900;
+      font-size: 1rem;
+    }
+
+    .mail-link {
+      color: #0369a1;
+      font-weight: 800;
+    }
+
+    footer {
+      background: #0f172a;
+      color: rgba(255,255,255,0.72);
+      padding: 34px 22px;
+      text-align: center;
+    }
+
+    .lang {
+      display: none;
+    }
+
+    body[data-lang="no"] .lang-no,
+    body[data-lang="en"] .lang-en {
+      display: revert;
+    }
+
+    @media (max-width: 920px) {
+      .hero-inner,
+      .about-grid,
+      .summary-contact {
+        grid-template-columns: 1fr;
+      }
+
+      .cards,
+      .steps {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .summary-box {
+        position: static;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-inner {
+        padding: 66px 18px 58px;
+      }
+
+      .section {
+        padding: 58px 18px;
+      }
+
+      .cards,
+      .steps,
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        padding: 13px 16px;
+      }
+
+      .brand span:last-child {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body data-lang="no">
+  <header class="topbar">
+    <nav class="nav">
+      <a class="brand" href="#top" aria-label="Til toppen">
+        <span class="brand-mark">AI</span>
+        <span>Fra idé til virkelighet</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#about"><span class="lang lang-no">Om</span><span class="lang lang-en">About</span></a>
+        <a href="#group"><span class="lang lang-no">Gruppen</span><span class="lang lang-en">The group</span></a>
+        <a href="#process"><span class="lang lang-no">Arbeidsform</span><span class="lang lang-en">How we work</span></a>
+        <a href="#contact"><span class="lang lang-no">Kontakt</span><span class="lang lang-en">Contact</span></a>
+      </div>
+
+      <div class="language-toggle" aria-label="Velg språk / Choose language">
+        <button type="button" id="btnNo" class="active" onclick="setLanguage('no')">NO</button>
+        <button type="button" id="btnEn" onclick="setLanguage('en')">EN</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">
+            <span class="lang lang-no">Prosjektfellesskap • AI • Skaperglede</span>
+            <span class="lang lang-en">Project community • AI • Creative energy</span>
+          </div>
+
+          <h1>
+            <span class="lang lang-no">Fra idé til virkelighet</span>
+            <span class="lang lang-en">From Idea to Reality</span>
+          </h1>
+
+          <p>
+            <span class="lang lang-no">Et lite, seriøst og skapende fellesskap for mennesker som vil tenke nytt, bygge praktiske løsninger og skape verdi sammen.</span>
+            <span class="lang lang-en">A small, serious and creative community for people who want to think differently, build practical solutions and create value together.</span>
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">
+              <span class="lang lang-no">Meld din interesse</span>
+              <span class="lang lang-en">Register your interest</span>
+            </a>
+            <a href="#group" class="btn btn-secondary">
+              <span class="lang lang-no">Les mer</span>
+              <span class="lang lang-en">Read more</span>
+            </a>
+          </div>
+        </div>
+
+        <aside class="hero-card">
+          <h2>
+            <span class="lang lang-no">Kun 5 personer i første runde</span>
+            <span class="lang lang-en">Only 5 people in the first round</span>
+          </h2>
+          <p>
+            <span class="lang lang-no">Målet er å samle en liten kjernegruppe med flinke, nysgjerrige og handlekraftige mennesker som vil teste idéer og bygge noe konkret.</span>
+            <span class="lang lang-en">The goal is to gather a small core group of skilled, curious and action-oriented people who want to test ideas and build something real.</span>
+          </p>
+
+          <div class="stat-grid">
+            <div class="stat">
+              <strong>40+</strong>
+              <span class="lang lang-no">år med teknologierfaring</span>
+              <span class="lang lang-en">years of technology experience</span>
+            </div>
+            <div class="stat">
+              <strong>2</strong>
+              <span class="lang lang-no">vellykkede bedrifter</span>
+              <span class="lang lang-en">successful companies</span>
+            </div>
+            <div class="stat">
+              <strong>5</strong>
+              <span class="lang lang-no">plasser i startgruppen</span>
+              <span class="lang lang-en">places in the first group</span>
+            </div>
+            <div class="stat">
+              <strong>AI</strong>
+              <span class="lang lang-no">som kreativ motor</span>
+              <span class="lang lang-en">as a creative engine</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <div class="about-grid">
+        <aside class="profile-box">
+          <div class="name">Thomas Johnsen</div>
+          <p>
+            <span class="lang lang-no">Programvareingeniør, gründer og teknologibygger siden 1985.</span>
+            <span class="lang lang-en">Software engineer, entrepreneur and technology builder since 1985.</span>
+          </p>
+
+          <ul class="profile-list">
+            <li><span class="lang lang-no">Har vært med på å skape to vellykkede bedrifter innen biblioteksbransjen.</span><span class="lang lang-en">Co-founded and built two successful companies in the library technology sector.</span></li>
+            <li><span class="lang lang-no">Har jobbet med utvikling, databaser, konvertering, opplæring, salg og prosjektledelse.</span><span class="lang lang-en">Experienced in development, databases, conversion, training, sales and project management.</span></li>
+            <li><span class="lang lang-no">Har vært med på overgangen fra kortkataloger til digitale og nettbaserte biblioteksystemer.</span><span class="lang lang-en">Contributed to the shift from physical card catalogues to digital and online library systems.</span></li>
+          </ul>
+        </aside>
+
+        <div class="text-panel">
+          <div class="section-header" style="margin-bottom: 18px;">
+            <div class="kicker">
+              <span class="lang lang-no">Bakgrunn</span>
+              <span class="lang lang-en">Background</span>
+            </div>
+            <h2>
+              <span class="lang lang-no">Hvorfor dette initiativet?</span>
+              <span class="lang lang-en">Why this initiative?</span>
+            </h2>
+          </div>
+
+          <p>
+            <span class="lang lang-no">Etter snart 40 år i teknologibransjen har jeg sett hvordan gode idéer kan forandre arbeidsmåter, bransjer og hverdagen til mennesker. Jeg har vært med på reisen fra fysiske kortkataloger til moderne digitale løsninger, og jeg har lært hvor mye som kan skapes når fagkunnskap, praktisk erfaring og gjennomføringsevne møtes.</span>
+            <span class="lang lang-en">After almost 40 years in the technology industry, I have seen how good ideas can change workflows, industries and everyday life. I have been part of the journey from physical card catalogues to modern digital solutions, and I have learned how much can be created when professional expertise, practical experience and execution come together.</span>
+          </p>
+
+          <p>
+            <span class="lang lang-no">Nå gjør kunstig intelligens det mulig å realisere idéer raskere enn noen gang før. Løsninger som tidligere krevde store team, mye kapital og lang utviklingstid, kan nå ofte testes og bygges langt mer effektivt.</span>
+            <span class="lang lang-en">Artificial intelligence now makes it possible to realize ideas faster than ever before. Solutions that previously required large teams, significant capital and long development cycles can often be tested and built far more efficiently today.</span>
+          </p>
+
+          <p>
+            <span class="lang lang-no">Derfor ønsker jeg å samle en liten gruppe mennesker som ikke bare vil snakke om muligheter, men faktisk undersøke, teste, bygge og skape.</span>
+            <span class="lang lang-en">That is why I want to gather a small group of people who do not only want to talk about possibilities, but actually explore, test, build and create.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="group" class="section">
+      <div class="section-header">
+        <div class="kicker">
+          <span class="lang lang-no">Kjernegruppen</span>
+          <span class="lang lang-en">The core group</span>
+        </div>
+        <h2>
+          <span class="lang lang-no">Hvem ser jeg etter?</span>
+          <span class="lang lang-en">Who am I looking for?</span>
+        </h2>
+        <p class="lead">
+          <span class="lang lang-no">Jeg ser etter flinke og sultne personer med faglig styrke, kreativitet og lyst til å bidra aktivt.</span>
+          <span class="lang lang-en">I am looking for skilled and hungry people with professional strength, creativity and a desire to contribute actively.</span>
+        </p>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <h3><span class="lang lang-no">Faglig styrke</span><span class="lang lang-en">Professional strength</span></h3>
+          <p><span class="lang lang-no">Du har erfaring, kunnskap eller et fagområde du kjenner godt, og du ønsker å bruke det til å skape noe nyttig.</span><span class="lang lang-en">You have experience, knowledge or a field you know well, and you want to use it to create something useful.</span></p>
+        </article>
+
+        <article class="card">
+          <h3><span class="lang lang-no">Skaperlyst</span><span class="lang lang-en">Creative drive</span></h3>
+          <p><span class="lang lang-no">Du liker idéer, muligheter, problemløsning og praktisk gjennomføring. Du vil gjerne bygge, teste og lære.</span><span class="lang lang-en">You enjoy ideas, possibilities, problem-solving and practical execution. You want to build, test and learn.</span></p>
+        </article>
+
+        <article class="card">
+          <h3><span class="lang lang-no">Samarbeid</span><span class="lang lang-en">Collaboration</span></h3>
+          <p><span class="lang lang-no">Du ønsker å bidra i et miljø der vi hjelper hverandre, inspirerer hverandre og deler kompetanse.</span><span class="lang lang-en">You want to contribute to an environment where we help each other, inspire each other and share expertise.</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div class="kicker">
+          <span class="lang lang-no">Mulige fagområder</span>
+          <span class="lang lang-en">Possible fields</span>
+        </div>
+        <h2>
+          <span class="lang lang-no">Ulik kompetanse gir bedre idéer</span>
+          <span class="lang lang-en">Different skills create better ideas</span>
+        </h2>
+      </div>
+
+      <div class="cards">
+        <article class="card"><h3>Teknologi / Technology</h3><p><span class="lang lang-no">Programmering, databaser, automatisering, AI-verktøy, integrasjoner og prototyper.</span><span class="lang lang-en">Programming, databases, automation, AI tools, integrations and prototypes.</span></p></article>
+        <article class="card"><h3>Design / UX</h3><p><span class="lang lang-no">Brukeropplevelse, visuell identitet, nettsider, skjemaer, apper og enkle løsninger folk faktisk forstår.</span><span class="lang lang-en">User experience, visual identity, websites, forms, apps and simple solutions people actually understand.</span></p></article>
+        <article class="card"><h3>Marked / Business</h3><p><span class="lang lang-no">Forretningsutvikling, salg, marked, økonomi, kundebehov og kommersialisering.</span><span class="lang lang-en">Business development, sales, marketing, finance, customer needs and commercialization.</span></p></article>
+        <article class="card"><h3>Fagkunnskap / Domain insight</h3><p><span class="lang lang-no">Erfaring fra helse, skole, kultur, offentlig sektor, logistikk, administrasjon, integrering eller andre fagfelt.</span><span class="lang lang-en">Experience from health, education, culture, public sector, logistics, administration, integration or other domains.</span></p></article>
+        <article class="card"><h3>Tekst / Communication</h3><p><span class="lang lang-no">Formidling, historiefortelling, kurs, opplæring, dokumentasjon, innhold og kommunikasjon.</span><span class="lang lang-en">Communication, storytelling, courses, training, documentation, content and messaging.</span></p></article>
+        <article class="card"><h3>Jus / Structure</h3><p><span class="lang lang-no">Avtaler, personvern, rettigheter, struktur, organisering og trygg etablering av prosjekter.</span><span class="lang lang-en">Agreements, privacy, rights, structure, organization and safe establishment of projects.</span></p></article>
+      </div>
+    </section>
+
+    <section id="process" class="section process">
+      <div class="section-header">
+        <div class="kicker">
+          <span class="lang lang-no">Arbeidsform</span>
+          <span class="lang lang-en">How we work</span>
+        </div>
+        <h2>
+          <span class="lang lang-no">Seriøst, praktisk og inspirerende</span>
+          <span class="lang lang-en">Serious, practical and inspiring</span>
+        </h2>
+        <p class="lead">
+          <span class="lang lang-no">Vi skal ikke bare samle idéer. Vi skal finne de beste, teste dem raskt og bygge videre på det som virker.</span>
+          <span class="lang lang-en">We will not just collect ideas. We will find the best ones, test them quickly and build on what works.</span>
+        </p>
+      </div>
+
+      <div class="steps">
+        <article class="step">
+          <h3><span class="lang lang-no">Brainstorming</span><span class="lang lang-en">Brainstorming</span></h3>
+          <p><span class="lang lang-no">Vi deler problemer, idéer, erfaringer og behov vi ser i markedet.</span><span class="lang lang-en">We share problems, ideas, experience and needs we see in the market.</span></p>
+        </article>
+        <article class="step">
+          <h3><span class="lang lang-no">Prioritering</span><span class="lang lang-en">Prioritization</span></h3>
+          <p><span class="lang lang-no">Vi vurderer hvilke idéer som har størst nytte, realisme og inntektspotensial.</span><span class="lang lang-en">We evaluate which ideas have the greatest usefulness, realism and income potential.</span></p>
+        </article>
+        <article class="step">
+          <h3><span class="lang lang-no">Prototyping</span><span class="lang lang-en">Prototyping</span></h3>
+          <p><span class="lang lang-no">Vi bruker AI og moderne verktøy til å lage raske tester, skisser og førsteversjoner.</span><span class="lang lang-en">We use AI and modern tools to create quick tests, sketches and first versions.</span></p>
+        </article>
+        <article class="step">
+          <h3><span class="lang lang-no">Realisering</span><span class="lang lang-en">Realization</span></h3>
+          <p><span class="lang lang-no">Vi bygger videre på det som virker, og forkaster det som ikke gjør det.</span><span class="lang lang-en">We continue building what works, and discard what does not.</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="summary-contact">
+        <aside class="summary-box">
+          <div class="kicker" style="color:#bae6fd;">
+            <span class="lang lang-no">Oppsummering</span>
+            <span class="lang lang-en">Summary</span>
+          </div>
+          <h2>
+            <span class="lang lang-no">Dette handler om å skape noe sammen</span>
+            <span class="lang lang-en">This is about creating something together</span>
+          </h2>
+          <p>
+            <span class="lang lang-no">Jeg ønsker å etablere en liten kjernegruppe som kombinerer erfaring, kreativitet og moderne AI-verktøy for å utvikle nye prosjekter, tjenester og løsninger.</span>
+            <span class="lang lang-en">I want to establish a small core group that combines experience, creativity and modern AI tools to develop new projects, services and solutions.</span>
+          </p>
+
+          <ul class="summary-list">
+            <li><span class="lang lang-no">Kun 5 personer i første omgang</span><span class="lang lang-en">Only 5 people in the first round</span></li>
+            <li><span class="lang lang-no">Fokus på idéer som kan testes og bygges</span><span class="lang lang-en">Focus on ideas that can be tested and built</span></li>
+            <li><span class="lang lang-no">AI som verktøy for raskere utvikling</span><span class="lang lang-en">AI as a tool for faster development</span></li>
+            <li><span class="lang lang-no">Fellesskap, inspirasjon, skaperglede og inntektsmuligheter</span><span class="lang lang-en">Community, inspiration, creative energy and income opportunities</span></li>
+          </ul>
+        </aside>
+
+        <form action="https://formspree.io/f/maqvlbbv" method="POST">
+          <h2 style="font-size:2rem;">
+            <span class="lang lang-no">Meld din interesse</span>
+            <span class="lang lang-en">Register your interest</span>
+          </h2>
+          <p class="form-note">
+            <span class="lang lang-no">Skjemaet kan kobles til Formspree. Bytt ut <strong>DITT_FORM_ID_HER</strong> i HTML-koden med din egen Formspree-ID. Mottaker settes i Formspree til <strong>thpest@gmail.com</strong>.</span>
+            <span class="lang lang-en">This form can be connected to Formspree. Replace <strong>DITT_FORM_ID_HER</strong> in the HTML code with your own Formspree ID. Set the recipient in Formspree to <strong>thpest@gmail.com</strong>.</span>
+          </p>
+
+          <input type="hidden" name="_subject" value="Ny interesse for Fra idé til virkelighet" />
+          <input type="hidden" name="source" value="Fra idé til virkelighet hjemmeside" />
+
+          <label for="name"><span class="lang lang-no">Navn</span><span class="lang lang-en">Name</span></label>
+          <input id="name" name="name" type="text" required />
+
+          <label for="email"><span class="lang lang-no">E-post</span><span class="lang lang-en">Email</span></label>
+          <input id="email" name="email" type="email" required />
+
+          <label for="phone"><span class="lang lang-no">Telefon</span><span class="lang lang-en">Phone</span></label>
+          <input id="phone" name="phone" type="text" />
+
+          <label for="background"><span class="lang lang-no">Hva er din faglige bakgrunn?</span><span class="lang lang-en">What is your professional background?</span></label>
+          <textarea id="background" name="background" required></textarea>
+
+          <label for="contribution"><span class="lang lang-no">Hva tror du at du kan bidra med?</span><span class="lang lang-en">What do you think you can contribute?</span></label>
+          <textarea id="contribution" name="contribution" required></textarea>
+
+          <label for="ideas"><span class="lang lang-no">Har du idéer eller fagområder du er spesielt opptatt av?</span><span class="lang lang-en">Do you have ideas or fields you are particularly interested in?</span></label>
+          <textarea id="ideas" name="ideas"></textarea>
+
+          <label for="motivation"><span class="lang lang-no">Hvorfor ønsker du å være med?</span><span class="lang lang-en">Why do you want to join?</span></label>
+          <textarea id="motivation" name="motivation" required></textarea>
+
+          <label for="time"><span class="lang lang-no">Hvor mye tid kan du realistisk bidra med i starten?</span><span class="lang lang-en">How much time can you realistically contribute in the beginning?</span></label>
+          <select id="time" name="time">
+            <option value=""><span class="lang lang-no">Velg...</span><span class="lang lang-en">Choose...</span></option>
+            <option value="1-2 timer per uke">1–2 timer per uke / 1–2 hours per week</option>
+            <option value="3-5 timer per uke">3–5 timer per uke / 3–5 hours per week</option>
+            <option value="6+ timer per uke">6+ timer per uke / 6+ hours per week</option>
+            <option value="Usikker foreløpig">Usikker foreløpig / Not sure yet</option>
+          </select>
+
+          <div class="submit-row">
+            <button class="submit-btn" type="submit">
+              <span class="lang lang-no">Send interesse</span>
+              <span class="lang lang-en">Send interest</span>
+            </button>
+            <span class="form-note" style="margin:0;">
+              <span class="lang lang-no">Eller send direkte til </span>
+              <span class="lang lang-en">Or send directly to </span>
+              <a class="mail-link" href="mailto:thpest@gmail.com">thpest@gmail.com</a>
+            </span>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="lang lang-no">© <span id="yearNo"></span> Fra idé til virkelighet. Et initiativ for mennesker som vil skape, bygge og lykkes sammen.</span>
+    <span class="lang lang-en">© <span id="yearEn"></span> From Idea to Reality. An initiative for people who want to create, build and succeed together.</span>
+  </footer>
+
+  <script>
+    function setLanguage(lang) {
+      document.body.setAttribute('data-lang', lang);
+      document.documentElement.setAttribute('lang', lang === 'no' ? 'no' : 'en');
+      document.getElementById('btnNo').classList.toggle('active', lang === 'no');
+      document.getElementById('btnEn').classList.toggle('active', lang === 'en');
+      localStorage.setItem('preferredLanguage', lang);
+    }
+
+    const savedLanguage = localStorage.getItem('preferredLanguage') || 'no';
+    setLanguage(savedLanguage);
+
+    const year = new Date().getFullYear();
+    document.getElementById('yearNo').textContent = year;
+    document.getElementById('yearEn').textContent = year;
+  </script>
+</body>
+</html>
